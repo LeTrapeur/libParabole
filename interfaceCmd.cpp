@@ -1,26 +1,21 @@
 #include "interfaceCmd.h"
-#include <WebServer.h>
 
     /** KEYPAD **/
-const byte ROWS = 4; //four rows
-const byte COLS = 3; //four columns
+const byte ROWS = 4;
+const byte COLS = 3;
 char keys[ROWS][COLS] =
  {{'1','2','3'},
   {'4','5','6'},
   {'7','8','9'},
   {'*','0','#'}};
 byte rowPins[ROWS] = {
-  PIN_CLAV_ROW1, PIN_CLAV_ROW2, PIN_CLAV_ROW3, PIN_CLAV_ROW4}; //connect to the row pinouts of the keypad
+  PIN_CLAV_ROW1, PIN_CLAV_ROW2, PIN_CLAV_ROW3, PIN_CLAV_ROW4};
 byte colPins[COLS] = {
-  PIN_CLAV_COL1, PIN_CLAV_COL2, PIN_CLAV_COL3}; //connect to the column pinouts of the keypad
+  PIN_CLAV_COL1, PIN_CLAV_COL2, PIN_CLAV_COL3};
 Keypad KEYPAD_MANUELLA = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
-//WebServer webserver = WebServer("",80);
-
 
     /** LCD **/
 LiquidCrystal LCD_MANUELLA(PIN_LCD_RS, PIN_LCD_E, PIN_LCD_D0, PIN_LCD_D1, PIN_LCD_D2, PIN_LCD_D3);
-
-
 
     /** PINS **/
 void interruptAzD(); // Déclaration anticipée
@@ -49,13 +44,12 @@ void initPins()
     pinMode(PIN_OUT_SENSELEV,OUTPUT);
 }
 
-
-
-/** Joystick **/
+/** JOYSTICK **/
 
 const int JOY_MIN_CENTER = -125;
 const int JOY_MAX_CENTER = 125;
-
+//
+// Renvoie direction du joystick
 JOYDIR getJoyDir()
 {
     int x = analogRead(PIN_JOY_X) - 525;    // Translation
@@ -83,7 +77,7 @@ JOYDIR getJoyDir()
     return JOY_CENTER;
 }
 
-    /** Interface de commande **/
+    /** INTERFACE COMMANDE **/
 void commandeMenu()
 {
     // Présentation //
@@ -140,19 +134,17 @@ void commandeMenu()
             }
         }
     }
-
-//    commandeClavier()
-//    commandeJoystick()
-
 }
-
+//
+// Permet de positionner la parabole à l'aide d'une selection clavier.
+// Vérifie que les coordonnées sont correctes avant de déplacer
 void commandeClavier()
 {
     int az = getAzimut();
     int el = getElevation();
 
     char str[4] = "";
-    int i = 0;
+    int chiffre = 0;
     char key = 'x';
 
     bool runningA = true;
@@ -171,23 +163,24 @@ void commandeClavier()
                 if(key == '*')
                     return;
 
-                if(i <= 2)
+                if(chiffre <= 2)
                 {
-                    str[i] = key;
-                    str[i+1] = '\0';
+                    // Construction du nombre
+                    str[chiffre] = key;
+                    str[chiffre+1] = '\0';
                     LCD_MANUELLA.print(key);
-                    ++i;
+                    ++chiffre;
                 }
             }
         }while(key != '#');
         LCD_MANUELLA.clear();
-        i = 0;
-
+        // Si erreur on redemande les valeurs sinon on sort de la boucle
         az = atoi(str);
         if(az < 0 || az > 180)
         {
             LCD_MANUELLA.print("Erreur");
             delay(1000);
+            chiffre = 0;
         }
         else
         {
@@ -198,6 +191,7 @@ void commandeClavier()
     }
 
         // ELEVATION //
+    chiffre = 0;
     bool runningE = true;
     while (runningE)
     {
@@ -213,23 +207,24 @@ void commandeClavier()
                 if(key == '*')
                     return;
 
-                if(i <= 2)
+                if(chiffre <= 2)
                 {
-                    str[i] = key;
-                    str[i+1] = '\0';
+                    // Construction du nombre
+                    str[chiffre] = key;
+                    str[chiffre+1] = '\0';
                     LCD_MANUELLA.print(key);
-                    ++i;
+                    ++chiffre;
                 }
             }
         }while(key != '#');
         LCD_MANUELLA.clear();
-
+        // Si erreur on redemande les valeurs sinon on sort de la boucle
         el = atoi(str);
         if(el < 0 || el > 90)
         {
             LCD_MANUELLA.print("Erreur");
             delay(1000);
-            i = 0;
+            chiffre = 0;
         }
         else
         {
@@ -239,7 +234,8 @@ void commandeClavier()
         }
     }
 }
-
+//
+// Permet le déplacement relatif de la parabole à l'aide d'un joystick (4 directions numériques)
 void commandeJoystick()
 {
     bool running = true;
@@ -255,22 +251,22 @@ void commandeJoystick()
             case JOY_RIGHT:
                 LCD_MANUELLA.setCursor(0,1);
                 LCD_MANUELLA.print("Dplct droite");
-    //            dplctAzimut(1);
+                dplctAzimut(1);
                 break;
             case JOY_LEFT:
                 LCD_MANUELLA.setCursor(0,1);
                 LCD_MANUELLA.print("Dplct gauche");
-    //            dplctAzimut(-1);
+                dplctAzimut(-1);
                 break;
             case JOY_UP:
                 LCD_MANUELLA.setCursor(0,1);
                 LCD_MANUELLA.print("Dplct haut  ");
-    //            dplctElev(1);
+                dplctElev(1);
                 break;
             case JOY_DOWN:
                 LCD_MANUELLA.setCursor(0,1);
                 LCD_MANUELLA.print("Dplct bas   ");
-    //            dplctElev(-1);
+                dplctElev(-1);
                 break;
             default:
                 LCD_MANUELLA.setCursor(0,1);
@@ -283,37 +279,87 @@ void commandeJoystick()
 #define PREFIX ""
 
 static uint8_t mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-static uint8_t ip[] = { 172, 27, 132, 200 };
+static uint8_t ip[] = { 172, 27, 129, 231 };
 WebServer webserver(PREFIX, 80);
 
-void helloCmd(WebServer &server, WebServer::ConnectionType type, char *, bool)
+void CmdForm(WebServer &server, WebServer::ConnectionType type, char *, bool)
 {
-  /* this line sends the standard "we're all OK" headers back to the
-     browser */
   webserver.httpSuccess();
 
-  /* if we're handling a GET or POST, we can output our data here.
-     For a HEAD request, we just stop after outputting headers. */
+    if (type == WebServer::POST)
+  {
+    bool repeat;
+    char az[16];
+    char elev[16];
+    unsigned int azimut = 0;
+    unsigned int elevation = 0;
+
+    webserver.readPOSTparam("azimut", 7, az, 16);
+    webserver.readPOSTparam("elevation", 10, elev, 16);
+
+    azimut = (int)strtoul(az, NULL, 10);
+    elevation = (int)strtoul(elev, NULL, 10);
+
+    if (azimut > 0 && azimut <= 180) setAzimut(azimut);
+    if (elevation > 0 && elevation <= 90) setElev(elevation);
+  }
+
   if (type != WebServer::HEAD)
   {
-    /* this defines some HTML text in read-only memory aka PROGMEM.
-     * This is needed to avoid having the string copied to our limited
-     * amount of RAM. */
-    P(helloMsg) = "<h1>Arduino Web Server</h1>";
+    P(Msg) =
+        "<html><head>"
 
-    /* this is a special form of print that outputs from PROGMEM */
-    webserver.printP(helloMsg);
+        "<title>Controle Parabole</title>"
+
+        "<body>"
+
+        "<h1>Controle Parabole</h1>"
+
+        "<form action='"PREFIX"' method='POST'>"
+        "<p><label for='azimut'>Azimut: </label><br />"
+        "<input type='text' name='az' id='azimut' /></p>"
+        "<p><label for='elevation'>Elevation: </label><br />"
+        "<input type='text' name='elev' id='elevation' /></p>"
+        "<p><INPUT type='submit'></p>"
+        "</form>"
+
+        "<form action='"PREFIX"/positions' method='POST'>"
+        "<input type='submit' value='Positions'>"
+        "</form>"
+
+        "</body></html>";
+
+    webserver.printP(Msg);
   }
 }
 
+void CmdPos(WebServer &server, WebServer::ConnectionType type, char *, bool)
+{
+    webserver.httpSuccess();
+
+    char *azimut = (char*)malloc(sizeof(char)*4);
+    char *elevation = (char*)malloc(sizeof(char)*4);
+
+    azimut = itoa(getAzimut(), azimut, 10);
+    elevation = itoa(getElevation(), elevation, 10);
+
+    if (type != WebServer::HEAD)
+    {
+        webserver << "<html><head>" "<title>Positions Parabole</title>" "<body>" "<h1>Positions Parabole</h1>";
+        webserver << "<p>Azimut: " << azimut << "</p>";
+        webserver << "<p>Elevation: " << elevation << "</p>";
+        webserver <<  "<form action='"PREFIX"/controle' method='POST'>" "<input type='submit' value='Controle'>" "</body></html>";
+    }
+
+}
 
 void commandeServeur()
 {
     Ethernet.begin(mac, ip);
-    webserver.setDefaultCommand(&helloCmd);
-    webserver.addCommand("index.html", &helloCmd);
+    webserver.setDefaultCommand(&CmdForm);
+    webserver.addCommand("controle", &CmdForm);
+    webserver.addCommand("positions", &CmdPos);
     webserver.begin();
-
 
     bool running = true;
     char key = 'x';

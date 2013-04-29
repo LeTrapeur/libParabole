@@ -29,9 +29,9 @@ void setAzimut(int az)
     return;
     // Placement
     int distance = abs(az - getAzimut());
-    while(distance > 0)
+    while(distance > 0 && FLAG_INTERRUPT == OFF)
     {
-        // Déplacement proportionnel à la distanec à parcourir
+        // Déplacement proportionnel à la distance à parcourir
         analogWrite(PIN_OUT_PWMAZIMUT, distance*PWM_TO_DEG_AZ);
         distance = abs(az - getAzimut()); // Recalcul de la distance à parcourir
     }
@@ -52,11 +52,10 @@ void setElev(int el)
     return;
     // Placement
     int distance = abs(el - getElevation());
-    while(distance > 0 && FLAG_INTERRUPT != OFF)
+    while(distance > 0 && FLAG_INTERRUPT == OFF)
     {
         // Déplacement proportionnel à la distance à parcourir
         analogWrite(PIN_OUT_PWMELEV, distance*PWM_TO_DEG_EL);
-        delay(1); // Stabilité
         distance = abs(el - getElevation()); // Recalcul de la distance à parcourir
     }
     FLAG_INTERRUPT = OFF;
