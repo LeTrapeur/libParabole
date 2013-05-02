@@ -29,18 +29,18 @@ void initPins()
     // Utiliser directement analogRead()
     //
     // Entrées interruptions avec init pull up (ATTENTION AUX ETATS INDET.)
-//    pinMode(PIN_IN_INT_DAZIMUT, INPUT);
-//    digitalWrite(PIN_IN_INT_DAZIMUT, HIGH);
-//    attachInterrupt(5, interruptAzD, LOW);
-//    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
-//    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
-//    attachInterrupt(4, interruptAzG, LOW);
-//    pinMode(PIN_IN_INT_DELEV, INPUT);
-//    digitalWrite(PIN_IN_INT_DELEV, HIGH);
-//    attachInterrupt(3, interruptElD, LOW);
-//    pinMode(PIN_IN_INT_DELEV, INPUT);
-//    digitalWrite(PIN_IN_INT_DELEV, HIGH);
-//    attachInterrupt(2, interruptElG, LOW);
+    pinMode(PIN_IN_INT_DAZIMUT, INPUT);
+    digitalWrite(PIN_IN_INT_DAZIMUT, HIGH);
+    attachInterrupt(5, interruptAzD, LOW);
+    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
+    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
+    attachInterrupt(4, interruptAzG, LOW);
+    pinMode(PIN_IN_INT_DELEV, INPUT);
+    digitalWrite(PIN_IN_INT_DELEV, HIGH);
+    attachInterrupt(3, interruptElD, LOW);
+    pinMode(PIN_IN_INT_DELEV, INPUT);
+    digitalWrite(PIN_IN_INT_DELEV, HIGH);
+    attachInterrupt(2, interruptElG, LOW);
     //
     // Sorties digitales
     pinMode(PIN_OUT_SENSAZIMUT,OUTPUT);
