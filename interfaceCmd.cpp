@@ -46,7 +46,9 @@ void initPins()
     pinMode(PIN_OUT_SENSAZIMUT,OUTPUT);
     pinMode(PIN_OUT_SENSELEV,OUTPUT);
     pinMode(PIN_OUT_RDYAZIMUT,OUTPUT);
+    digitalWrite(PIN_OUT_RDYAZIMUT, LOW);
     pinMode(PIN_OUT_RDYELEV,OUTPUT);
+    digitalWrite(PIN_OUT_RDYELEV, LOW);
     //
     // Sorties PWM
     pinMode(PIN_OUT_PWMAZIMUT,OUTPUT);
