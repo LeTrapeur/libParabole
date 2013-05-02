@@ -11,7 +11,7 @@ const int PIN_IN_INT_DELEV = 20;    // D20: butée droite elevation
 const int PIN_IN_INT_GELEV = 21;    // D21: butée gauche elevation
 //
 // Sorties digitales
-const int PIN_OUT_SENSAZIMUT = 30;  // D30: sens azimut
+const int PIN_OUT_SENSAZIMUT = 42;  // D30: sens azimut
 const int PIN_OUT_SENSELEV = 31;    // D31: sens élevation
 const int PIN_OUT_RDYAZIMUT = 32;   // D32: reprise moteur azimut
 const int PIN_OUT_RDYELEV = 33;     // D33: reprise moteur elevation

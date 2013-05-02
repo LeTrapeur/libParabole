@@ -14,6 +14,7 @@
 #include "defPins.h"
 #include "Arduino.h"
 
+
 int getAzimut();
 int getElevation();
 void setAzimut(int az);

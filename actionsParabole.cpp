@@ -8,7 +8,9 @@
 #define OFF 0
 #define ON 1
 
-int FLAG_INTERRUPT = OFF;
+#define VIT 200
+
+volatile int FLAG_INTERRUPT = OFF;
 
 int getAzimut()
 {
@@ -32,7 +34,7 @@ void setAzimut(int az)
     while(distance > 0 && FLAG_INTERRUPT == OFF)
     {
         // Déplacement proportionnel à la distance à parcourir
-        analogWrite(PIN_OUT_PWMAZIMUT, distance*PWM_TO_DEG_AZ);
+        analogWrite(PIN_OUT_PWMAZIMUT, VIT);
         distance = abs(az - getAzimut()); // Recalcul de la distance à parcourir
     }
     FLAG_INTERRUPT = OFF;
@@ -55,7 +57,7 @@ void setElev(int el)
     while(distance > 0 && FLAG_INTERRUPT == OFF)
     {
         // Déplacement proportionnel à la distance à parcourir
-        analogWrite(PIN_OUT_PWMELEV, distance*PWM_TO_DEG_EL);
+        analogWrite(PIN_OUT_PWMELEV, VIT);
         distance = abs(el - getElevation()); // Recalcul de la distance à parcourir
     }
     FLAG_INTERRUPT = OFF;
@@ -66,34 +68,38 @@ void dplctElev(int dEl)
     setElev(getElevation() + dEl);
 }
 
-void interruptAzD()
-{
-    digitalWrite(PIN_OUT_SENSAZIMUT, LOW);
-    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
-    analogWrite(PIN_OUT_PWMAZIMUT, 10);
-    FLAG_INTERRUPT = ON;
-}
-
-void interruptAzG()
-{
-    digitalWrite(PIN_OUT_SENSAZIMUT, HIGH);
-    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
-    analogWrite(PIN_OUT_PWMAZIMUT, 10);
-    FLAG_INTERRUPT = ON;
-}
-
-void interruptElD()
-{
-    digitalWrite(PIN_OUT_SENSELEV, LOW);
-    digitalWrite(PIN_OUT_RDYELEV, HIGH);
-    analogWrite(PIN_OUT_PWMELEV, 10);
-    FLAG_INTERRUPT = ON;
-}
-
-void interruptElG()
-{
-    digitalWrite(PIN_OUT_SENSELEV, HIGH);
-    digitalWrite(PIN_OUT_RDYELEV, HIGH);
-    analogWrite(PIN_OUT_PWMELEV, 10);
-    FLAG_INTERRUPT = ON;
-}
+//void interruptAzD()
+//{
+//    Serial.println("interrupt! AzD");//DEBUG
+//    digitalWrite(PIN_OUT_SENSAZIMUT, LOW);
+//    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
+//    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
+//    FLAG_INTERRUPT = ON;
+//}
+//
+//void interruptAzG()
+//{
+//    Serial.println("interrupt! AzG");//DEBUG
+//    digitalWrite(PIN_OUT_SENSAZIMUT, HIGH);
+//    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
+//    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
+//    FLAG_INTERRUPT = ON;
+//}
+//
+//void interruptElD()
+//{
+//    Serial.println("interrupt! ElD"); //DEBUG
+//    digitalWrite(PIN_OUT_SENSELEV, LOW);
+//    digitalWrite(PIN_OUT_RDYELEV, HIGH);
+//    analogWrite(PIN_OUT_PWMELEV, VIT);
+//    FLAG_INTERRUPT = ON;
+//}
+//
+//void interruptElG()
+//{
+//    Serial.println("interrupt! ElG"); //DEBUG
+//    digitalWrite(PIN_OUT_SENSELEV, HIGH);
+//    digitalWrite(PIN_OUT_RDYELEV, HIGH);
+//    analogWrite(PIN_OUT_PWMELEV, VIT);
+//    FLAG_INTERRUPT = ON;
+//}

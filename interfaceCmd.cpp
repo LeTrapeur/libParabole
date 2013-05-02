@@ -22,16 +22,25 @@ void interruptAzD(); // Déclaration anticipée
 void interruptAzG(); // Déclaration anticipée
 void interruptElD(); // Déclaration anticipée
 void interruptElG(); // Déclaration anticipée
+
 void initPins()
 {
     // Entrées analogiques
     // Utiliser directement analogRead()
     //
-    // Entrées interruptions
-    attachInterrupt(PIN_IN_INT_DAZIMUT, interruptAzD, HIGH);
-    attachInterrupt(PIN_IN_INT_GAZIMUT, interruptAzG, HIGH);
-    attachInterrupt(PIN_IN_INT_DELEV, interruptElD, HIGH);
-    attachInterrupt(PIN_IN_INT_GELEV, interruptElG, HIGH);
+    // Entrées interruptions avec init pull up (ATTENTION AUX ETATS INDET.)
+//    pinMode(PIN_IN_INT_DAZIMUT, INPUT);
+//    digitalWrite(PIN_IN_INT_DAZIMUT, HIGH);
+//    attachInterrupt(5, interruptAzD, LOW);
+//    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
+//    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
+//    attachInterrupt(4, interruptAzG, LOW);
+//    pinMode(PIN_IN_INT_DELEV, INPUT);
+//    digitalWrite(PIN_IN_INT_DELEV, HIGH);
+//    attachInterrupt(3, interruptElD, LOW);
+//    pinMode(PIN_IN_INT_DELEV, INPUT);
+//    digitalWrite(PIN_IN_INT_DELEV, HIGH);
+//    attachInterrupt(2, interruptElG, LOW);
     //
     // Sorties digitales
     pinMode(PIN_OUT_SENSAZIMUT,OUTPUT);
@@ -40,8 +49,8 @@ void initPins()
     pinMode(PIN_OUT_RDYELEV,OUTPUT);
     //
     // Sorties PWM
-    pinMode(PIN_OUT_SENSAZIMUT,OUTPUT);
-    pinMode(PIN_OUT_SENSELEV,OUTPUT);
+    pinMode(PIN_OUT_PWMAZIMUT,OUTPUT);
+    pinMode(PIN_OUT_PWMELEV,OUTPUT);
 }
 
 /** JOYSTICK **/
@@ -95,6 +104,7 @@ void commandeMenu()
     char key = 'x';
     while(running)
     {
+
         LCD_MANUELLA.clear();
         LCD_MANUELLA.print("1 Clav. 2 Jstick");
         LCD_MANUELLA.setCursor(0,1);
@@ -102,6 +112,8 @@ void commandeMenu()
         choixMenu = false;
         while(!choixMenu)
         {
+            Serial.println(getAzimut());     //DEBUG
+            Serial.println(getElevation());     //DEBUG
             key = KEYPAD_MANUELLA.getKey();
             if(key != NO_KEY)
             {
@@ -110,21 +122,21 @@ void commandeMenu()
                 case '1':
                     LCD_MANUELLA.clear();
                     LCD_MANUELLA.print("Mode clavier");
-                    delay(1000);
+                    delay(500);
                     commandeClavier();
                     choixMenu = true;
                     break;
                 case '2':
                     LCD_MANUELLA.clear();
                     LCD_MANUELLA.print("Mode joystick");
-                    delay(1000);
+                    delay(500);
                     commandeJoystick();
                     choixMenu = true;
                     break;
                 case '3':
                     LCD_MANUELLA.clear();
                     LCD_MANUELLA.print("Mode serveur");
-                    delay(1000);
+                    delay(500);
                     commandeServeur();
                     choixMenu = true;
                     break;
@@ -345,7 +357,8 @@ void CmdPos(WebServer &server, WebServer::ConnectionType type, char *, bool)
 
     if (type != WebServer::HEAD)
     {
-        webserver << "<html><head>" "<title>Positions Parabole</title>" "<body>" "<h1>Positions Parabole</h1>";
+        webserver << "<html><head>" "<title>Positions Parabole</title>";
+        webserver << "<body>" "<h1>Positions Parabole</h1>";
         webserver << "<p>Azimut: " << azimut << "</p>";
         webserver << "<p>Elevation: " << elevation << "</p>";
         webserver <<  "<form action='"PREFIX"/controle' method='POST'>" "<input type='submit' value='Controle'>" "</body></html>";
