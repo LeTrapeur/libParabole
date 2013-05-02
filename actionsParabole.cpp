@@ -1,5 +1,10 @@
 #include "actionsParabole.h"
-
+// TODO Conversion à refaire
+// TODO Fonction arret azimut et elevation
+// TODO Arrêt joystick
+// TODO Arrêt clavier
+// TODO Tester fonction arrêt
+// TODO Tester alimentation PC Fixe
 #define UNIT_TO_DEG_AZ 0.1760
 #define PWM_TO_DEG_AZ 0.4167
 #define UNIT_TO_DEG_EL 0.0880
@@ -68,38 +73,38 @@ void dplctElev(int dEl)
     setElev(getElevation() + dEl);
 }
 
-//void interruptAzD()
-//{
-//    Serial.println("interrupt! AzD");//DEBUG
-//    digitalWrite(PIN_OUT_SENSAZIMUT, LOW);
-//    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
-//    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
-//    FLAG_INTERRUPT = ON;
-//}
-//
-//void interruptAzG()
-//{
-//    Serial.println("interrupt! AzG");//DEBUG
-//    digitalWrite(PIN_OUT_SENSAZIMUT, HIGH);
-//    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
-//    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
-//    FLAG_INTERRUPT = ON;
-//}
-//
-//void interruptElD()
-//{
-//    Serial.println("interrupt! ElD"); //DEBUG
-//    digitalWrite(PIN_OUT_SENSELEV, LOW);
-//    digitalWrite(PIN_OUT_RDYELEV, HIGH);
-//    analogWrite(PIN_OUT_PWMELEV, VIT);
-//    FLAG_INTERRUPT = ON;
-//}
-//
-//void interruptElG()
-//{
-//    Serial.println("interrupt! ElG"); //DEBUG
-//    digitalWrite(PIN_OUT_SENSELEV, HIGH);
-//    digitalWrite(PIN_OUT_RDYELEV, HIGH);
-//    analogWrite(PIN_OUT_PWMELEV, VIT);
-//    FLAG_INTERRUPT = ON;
-//}
+void interruptAzD()
+{
+    Serial.println("interrupt! AzD");//DEBUG
+    digitalWrite(PIN_OUT_SENSAZIMUT, LOW);
+    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
+    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
+    FLAG_INTERRUPT = ON;
+}
+
+void interruptAzG()
+{
+    Serial.println("interrupt! AzG");//DEBUG
+    digitalWrite(PIN_OUT_SENSAZIMUT, HIGH);
+    digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
+    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
+    FLAG_INTERRUPT = ON;
+}
+
+void interruptElD()
+{
+    Serial.println("interrupt! ElD"); //DEBUG
+    digitalWrite(PIN_OUT_SENSELEV, LOW);
+    digitalWrite(PIN_OUT_RDYELEV, HIGH);
+    analogWrite(PIN_OUT_PWMELEV, VIT);
+    FLAG_INTERRUPT = ON;
+}
+
+void interruptElG()
+{
+    Serial.println("interrupt! ElG"); //DEBUG
+    digitalWrite(PIN_OUT_SENSELEV, HIGH);
+    digitalWrite(PIN_OUT_RDYELEV, HIGH);
+    analogWrite(PIN_OUT_PWMELEV, VIT);
+    FLAG_INTERRUPT = ON;
+}
