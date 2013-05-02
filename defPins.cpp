@@ -1,18 +1,18 @@
 #include "defPins.h"
 
-//Entrées analogiques
-const int PIN_IN_AZIMUT = 0;        // A0: potentiomètre azimut
-const int PIN_IN_ELEV = 1;          // A1: potentiomètre élevation
+//Entrï¿½es analogiques
+const int PIN_IN_AZIMUT = 0;        // A0: potentiomï¿½tre azimut
+const int PIN_IN_ELEV = 1;          // A1: potentiomï¿½tre ï¿½levation
 //
-// Entrées interruptions
-const int PIN_IN_INT_DAZIMUT = 18;  // D18: butée droite azimut
-const int PIN_IN_INT_GAZIMUT = 19;  // D19: butée gauche azimut
-const int PIN_IN_INT_DELEV = 20;    // D20: butée droite elevation
-const int PIN_IN_INT_GELEV = 21;    // D21: butée gauche elevation
+// Entrï¿½es interruptions
+const int PIN_IN_INT_DAZIMUT = 18;  // D18: butï¿½e droite azimut
+const int PIN_IN_INT_GAZIMUT = 19;  // D19: butï¿½e gauche azimut
+const int PIN_IN_INT_DELEV = 20;    // D20: butï¿½e haute elevation
+const int PIN_IN_INT_GELEV = 21;    // D21: butï¿½e basse elevation
 //
 // Sorties digitales
 const int PIN_OUT_SENSAZIMUT = 42;  // D30: sens azimut
-const int PIN_OUT_SENSELEV = 31;    // D31: sens élevation
+const int PIN_OUT_SENSELEV = 31;    // D31: sens ï¿½levation
 const int PIN_OUT_RDYAZIMUT = 32;   // D32: reprise moteur azimut
 const int PIN_OUT_RDYELEV = 33;     // D33: reprise moteur elevation
 //
