@@ -198,6 +198,7 @@ void commandeClavier()
         {
             LCD_MANUELLA.print("Dplct en cours");
             setAzimut(az);
+            stopAzimut();
             runningA = false;
         }
     }
@@ -241,7 +242,8 @@ void commandeClavier()
         else
         {
             LCD_MANUELLA.print("Dplct en cours");
-            setAzimut(el);
+            setElev(el);
+            stopElev();
             runningE = false;
         }
     }
@@ -281,6 +283,8 @@ void commandeJoystick()
                 dplctElev(-1);
                 break;
             default:
+                stopAzimut();
+                stopElev();
                 LCD_MANUELLA.setCursor(0,1);
                 LCD_MANUELLA.print("Aucun dplct ");
                 break;
@@ -312,9 +316,16 @@ void CmdForm(WebServer &server, WebServer::ConnectionType type, char *, bool)
     azimut = (int)strtoul(az, NULL, 10);
     elevation = (int)strtoul(elev, NULL, 10);
 
-    if (azimut > 0 && azimut <= 180) setAzimut(azimut);
-    if (elevation > 0 && elevation <= 90) setElev(elevation);
-  }
+    if (azimut > 0 && azimut <= 180)
+    {
+        setAzimut(azimut);
+        stopAzimut();
+    }
+    if (elevation > 0 && elevation <= 90)
+    {
+        setElev(elevation);
+        stopElev();
+    }
 
   if (type != WebServer::HEAD)
   {

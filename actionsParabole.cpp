@@ -1,8 +1,5 @@
 #include "actionsParabole.h"
 // TODO Conversion à refaire
-// TODO Fonction arret azimut et elevation
-// TODO Arrêt joystick
-// TODO Arrêt clavier
 // TODO Tester fonction arrêt
 // TODO Tester alimentation PC Fixe
 #define UNIT_TO_DEG_AZ 0.1760
@@ -13,7 +10,7 @@
 #define OFF 0
 #define ON 1
 
-#define VIT 200
+#define VIT 255
 
 volatile int FLAG_INTERRUPT = OFF;
 
