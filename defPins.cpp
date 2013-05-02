@@ -38,5 +38,6 @@ const int PIN_LCD_D2 = 5;
 const int PIN_LCD_D3 = 6;
 //
 // Pins joystick (voir manuella)
+//Entr�es analogiques
 const int PIN_JOY_X = 6;
 const int PIN_JOY_Y = 7;
