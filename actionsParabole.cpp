@@ -88,7 +88,7 @@ void dplctElev(int dEl)
     setElev(getElevation() + dEl);
 }
 
-void interruptAzD()
+void interruptDAz()
 {
     Serial.println("interrupt! AzD");//DEBUG
     digitalWrite(PIN_OUT_SENSAZIMUT, LOW);
@@ -97,7 +97,7 @@ void interruptAzD()
     FLAG_INTERRUPT = ON;
 }
 
-void interruptAzG()
+void interruptGAz()
 {
     Serial.println("interrupt! AzG");//DEBUG
     digitalWrite(PIN_OUT_SENSAZIMUT, HIGH);
@@ -106,7 +106,7 @@ void interruptAzG()
     FLAG_INTERRUPT = ON;
 }
 
-void interruptElD()
+void interruptHEl()
 {
     Serial.println("interrupt! ElD"); //DEBUG
     digitalWrite(PIN_OUT_SENSELEV, LOW);
@@ -115,7 +115,7 @@ void interruptElD()
     FLAG_INTERRUPT = ON;
 }
 
-void interruptElG()
+void interruptBEl()
 {
     Serial.println("interrupt! ElG"); //DEBUG
     digitalWrite(PIN_OUT_SENSELEV, HIGH);

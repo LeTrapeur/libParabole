@@ -7,8 +7,8 @@ const int PIN_IN_ELEV = 1;          // A1: potentiom�tre �levation
 // Entr�es interruptions
 const int PIN_IN_INT_DAZIMUT = 18;  // D18: but�e droite azimut
 const int PIN_IN_INT_GAZIMUT = 19;  // D19: but�e gauche azimut
-const int PIN_IN_INT_DELEV = 20;    // D20: but�e haute elevation
-const int PIN_IN_INT_GELEV = 21;    // D21: but�e basse elevation
+const int PIN_IN_INT_HELEV = 20;    // D20: but�e haute elevation
+const int PIN_IN_INT_BELEV = 21;    // D21: but�e basse elevation
 //
 // Sorties digitales
 const int PIN_OUT_SENSAZIMUT = 42;  // D30: sens azimut
