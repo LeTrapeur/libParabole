@@ -18,8 +18,10 @@
 int getAzimut();
 int getElevation();
 void setAzimut(int az);
+void stopAzimut();
 void dplctAzimut(int dAz);
 void setElev(int el);
+void stopElev();
 void dplctElev(int dEl);
 void interruptAzD();
 void interruptAzG();

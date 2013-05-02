@@ -45,6 +45,11 @@ void setAzimut(int az)
     FLAG_INTERRUPT = OFF;
 }
 
+void stopAzimut()
+{
+    analogWrite(PIN_OUT_PWMAZIMUT, 0);
+}
+
 void dplctAzimut(int dAz)
 {
     setAzimut(getAzimut() + dAz);
@@ -66,6 +71,11 @@ void setElev(int el)
         distance = abs(el - getElevation()); // Recalcul de la distance à parcourir
     }
     FLAG_INTERRUPT = OFF;
+}
+
+void stopElev()
+{
+    analogWrite(PIN_OUT_PWMELEV, 0);
 }
 
 void dplctElev(int dEl)
