@@ -10,7 +10,8 @@
 #define OFF 0
 #define ON 1
 
-#define VIT 255
+#define H_SPEED 255
+#define L_SPEED 105
 
 volatile int FLAG_INTERRUPT = OFF;
 
@@ -36,7 +37,11 @@ void setAzimut(int az)
     while(distance > 0 && FLAG_INTERRUPT == OFF)
     {
         // Déplacement proportionnel à la distance à parcourir
-        analogWrite(PIN_OUT_PWMAZIMUT, VIT);
+        if(distance > 5)
+            analogWrite(PIN_OUT_PWMAZIMUT, H_SPEED);
+        else
+            analogWrite(PIN_OUT_PWMAZIMUT, L_SPEED);
+
         distance = abs(az - getAzimut()); // Recalcul de la distance à parcourir
     }
     FLAG_INTERRUPT = OFF;
@@ -63,9 +68,12 @@ void setElev(int el)
     int distance = abs(el - getElevation());
     while(distance > 0 && FLAG_INTERRUPT == OFF)
     {
-        // Déplacement proportionnel à la distance à parcourir
-        analogWrite(PIN_OUT_PWMELEV, VIT);
-        distance = abs(el - getElevation()); // Recalcul de la distance à parcourir
+        if(distance > 5)
+            analogWrite(PIN_OUT_PWMELEV, H_SPEED);
+        else
+            analogWrite(PIN_OUT_PWMELEV, L_SPEED);
+
+        distance = abs(az - getAzimut()); // Recalcul de la distance à parcourir
     }
     FLAG_INTERRUPT = OFF;
 }
@@ -85,7 +93,7 @@ void interruptAzD()
     Serial.println("interrupt! AzD");//DEBUG
     digitalWrite(PIN_OUT_SENSAZIMUT, LOW);
     digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
-    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
+    analogWrite(PIN_OUT_PWMAZIMUT, L_SPEED);
     FLAG_INTERRUPT = ON;
 }
 
@@ -94,7 +102,7 @@ void interruptAzG()
     Serial.println("interrupt! AzG");//DEBUG
     digitalWrite(PIN_OUT_SENSAZIMUT, HIGH);
     digitalWrite(PIN_OUT_RDYAZIMUT, HIGH);
-    analogWrite(PIN_OUT_PWMAZIMUT, VIT);
+    analogWrite(PIN_OUT_PWMAZIMUT, L_SPEED);
     FLAG_INTERRUPT = ON;
 }
 
@@ -103,7 +111,7 @@ void interruptElD()
     Serial.println("interrupt! ElD"); //DEBUG
     digitalWrite(PIN_OUT_SENSELEV, LOW);
     digitalWrite(PIN_OUT_RDYELEV, HIGH);
-    analogWrite(PIN_OUT_PWMELEV, VIT);
+    analogWrite(PIN_OUT_PWMELEV, L_SPEED);
     FLAG_INTERRUPT = ON;
 }
 
@@ -112,6 +120,6 @@ void interruptElG()
     Serial.println("interrupt! ElG"); //DEBUG
     digitalWrite(PIN_OUT_SENSELEV, HIGH);
     digitalWrite(PIN_OUT_RDYELEV, HIGH);
-    analogWrite(PIN_OUT_PWMELEV, VIT);
+    analogWrite(PIN_OUT_PWMELEV, L_SPEED);
     FLAG_INTERRUPT = ON;
 }
