@@ -11,7 +11,12 @@
 #define ON 1
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define VIT 100
+=======
+#define H_SPEED 255
+#define L_SPEED 105
+>>>>>>> b26a56413db5c8b57d230ec487717021df9ab574
 =======
 #define H_SPEED 255
 #define L_SPEED 105
