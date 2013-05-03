@@ -29,29 +29,16 @@ void initPins()
     // Utiliser directement analogRead()
     //
     // Entrées interruptions avec pull down externe
-//    pinMode(PIN_IN_INT_DAZIMUT, INPUT);
-//    digitalWrite(PIN_IN_INT_DAZIMUT, HIGH);
-<<<<<<< HEAD
-<<<<<<< HEAD
-//    attachInterrupt(5, interruptAzD, LOW);
-//    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
-//    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
-//    attachInterrupt(4, interruptAzG, LOW);
-//    pinMode(PIN_IN_INT_DELEV, INPUT);
-//    digitalWrite(PIN_IN_INT_DELEV, HIGH);
-//    attachInterrupt(3, interruptElD, LOW);
-//    pinMode(PIN_IN_INT_DELEV, INPUT);
+
+
 //    digitalWrite(PIN_IN_INT_DELEV, HIGH);
 //    attachInterrupt(2, interruptElG, LOW);
-=======
     attachInterrupt(5, interruptDAz, LOW);
 //    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
 //    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
-=======
     attachInterrupt(5, interruptDAz, LOW);
 //    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
 //    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
->>>>>>> b26a56413db5c8b57d230ec487717021df9ab574
     attachInterrupt(4, interruptGAz, LOW);
 //    pinMode(PIN_IN_INT_HELEV, INPUT);
 //    digitalWrite(PIN_IN_INT_HELEV, HIGH);
@@ -59,10 +46,6 @@ void initPins()
 //    pinMode(PIN_IN_INT_BELEV, INPUT);
 //    digitalWrite(PIN_IN_INT_BELEV, HIGH);
     attachInterrupt(2, interruptBEl, LOW);
-<<<<<<< HEAD
->>>>>>> b26a56413db5c8b57d230ec487717021df9ab574
-=======
->>>>>>> b26a56413db5c8b57d230ec487717021df9ab574
     //
     // Sorties digitales
     pinMode(PIN_OUT_SENSAZIMUT,OUTPUT);
