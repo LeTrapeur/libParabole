@@ -31,16 +31,16 @@ void initPins()
     // Entrées interruptions avec pull down externe
 //    pinMode(PIN_IN_INT_DAZIMUT, INPUT);
 //    digitalWrite(PIN_IN_INT_DAZIMUT, HIGH);
-    attachInterrupt(5, interruptAzD, LOW);
+//    attachInterrupt(5, interruptAzD, LOW);
 //    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
 //    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
-    attachInterrupt(4, interruptAzG, LOW);
+//    attachInterrupt(4, interruptAzG, LOW);
 //    pinMode(PIN_IN_INT_DELEV, INPUT);
 //    digitalWrite(PIN_IN_INT_DELEV, HIGH);
-    attachInterrupt(3, interruptElD, LOW);
+//    attachInterrupt(3, interruptElD, LOW);
 //    pinMode(PIN_IN_INT_DELEV, INPUT);
 //    digitalWrite(PIN_IN_INT_DELEV, HIGH);
-    attachInterrupt(2, interruptElG, LOW);
+//    attachInterrupt(2, interruptElG, LOW);
     //
     // Sorties digitales
     pinMode(PIN_OUT_SENSAZIMUT,OUTPUT);
@@ -295,7 +295,7 @@ void commandeJoystick()
 #define PREFIX ""
 
 static uint8_t mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-static uint8_t ip[] = { 172, 27, 129, 231 };
+static uint8_t ip[] = { 192, 168, 1, 1 };
 WebServer webserver(PREFIX, 80);
 
 void CmdForm(WebServer &server, WebServer::ConnectionType type, char *, bool)
@@ -354,6 +354,7 @@ void CmdForm(WebServer &server, WebServer::ConnectionType type, char *, bool)
 
     webserver.printP(Msg);
   }
+}
 }
 
 void CmdPos(WebServer &server, WebServer::ConnectionType type, char *, bool)

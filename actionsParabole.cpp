@@ -10,7 +10,7 @@
 #define OFF 0
 #define ON 1
 
-#define VIT 255
+#define VIT 100
 
 volatile int FLAG_INTERRUPT = OFF;
 
@@ -27,8 +27,8 @@ int getElevation()
 void setAzimut(int az)
 {
     // Déterminer sens
-    if (az < getAzimut()) digitalWrite(PIN_OUT_SENSAZIMUT, LOW);
-    else if (az > getAzimut()) digitalWrite(PIN_OUT_SENSAZIMUT, HIGH);
+    if (az < getAzimut()) digitalWrite(PIN_OUT_SENSAZIMUT, HIGH); //
+    else if (az > getAzimut()) digitalWrite(PIN_OUT_SENSAZIMUT, LOW); // !!
     else
     return;
     // Placement
