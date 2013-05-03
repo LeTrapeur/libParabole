@@ -23,9 +23,9 @@ void dplctAzimut(int dAz);
 void setElev(int el);
 void stopElev();
 void dplctElev(int dEl);
-void interruptAzD();
-void interruptAzG();
-void interruptElD();
-void interruptElG();
+void interruptDAz();
+void interruptGAz();
+void interruptHEl();
+void interruptBEl();
 
 #endif

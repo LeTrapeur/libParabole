@@ -19,8 +19,8 @@ extern const int PIN_IN_ELEV;           // A1: potentiomètre élevation
 // Entrées interruptions
 extern const int PIN_IN_INT_DAZIMUT;    // D18: butée droite azimut
 extern const int PIN_IN_INT_GAZIMUT;    // D19: butée gauche azimut
-extern const int PIN_IN_INT_DELEV;      // D20: butée droite elevation
-extern const int PIN_IN_INT_GELEV;      // D21: butée gauche elevation
+extern const int PIN_IN_INT_HELEV;      // D20: butée haute elevation
+extern const int PIN_IN_INT_BELEV;      // D21: butée basse elevation
 //
 // Sorties digitales
 extern const int PIN_OUT_SENSAZIMUT;    // D30: sens azimut

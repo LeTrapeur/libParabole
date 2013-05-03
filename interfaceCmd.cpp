@@ -18,10 +18,10 @@ Keypad KEYPAD_MANUELLA = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS 
 LiquidCrystal LCD_MANUELLA(PIN_LCD_RS, PIN_LCD_E, PIN_LCD_D0, PIN_LCD_D1, PIN_LCD_D2, PIN_LCD_D3);
 
     /** PINS **/
-void interruptAzD(); // Déclaration anticipée
-void interruptAzG(); // Déclaration anticipée
-void interruptElD(); // Déclaration anticipée
-void interruptElG(); // Déclaration anticipée
+void interruptDAz(); // Déclaration anticipée
+void interruptGAz(); // Déclaration anticipée
+void interruptHEl(); // Déclaration anticipée
+void interruptBEl(); // Déclaration anticipée
 
 void initPins()
 {
@@ -31,6 +31,7 @@ void initPins()
     // Entrées interruptions avec pull down externe
 //    pinMode(PIN_IN_INT_DAZIMUT, INPUT);
 //    digitalWrite(PIN_IN_INT_DAZIMUT, HIGH);
+<<<<<<< HEAD
 //    attachInterrupt(5, interruptAzD, LOW);
 //    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
 //    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
@@ -41,12 +42,26 @@ void initPins()
 //    pinMode(PIN_IN_INT_DELEV, INPUT);
 //    digitalWrite(PIN_IN_INT_DELEV, HIGH);
 //    attachInterrupt(2, interruptElG, LOW);
+=======
+    attachInterrupt(5, interruptDAz, LOW);
+//    pinMode(PIN_IN_INT_GAZIMUT, INPUT);
+//    digitalWrite(PIN_IN_INT_GAZIMUT, HIGH);
+    attachInterrupt(4, interruptGAz, LOW);
+//    pinMode(PIN_IN_INT_HELEV, INPUT);
+//    digitalWrite(PIN_IN_INT_HELEV, HIGH);
+    attachInterrupt(3, interruptHEl, LOW);
+//    pinMode(PIN_IN_INT_BELEV, INPUT);
+//    digitalWrite(PIN_IN_INT_BELEV, HIGH);
+    attachInterrupt(2, interruptBEl, LOW);
+>>>>>>> b26a56413db5c8b57d230ec487717021df9ab574
     //
     // Sorties digitales
     pinMode(PIN_OUT_SENSAZIMUT,OUTPUT);
     pinMode(PIN_OUT_SENSELEV,OUTPUT);
     pinMode(PIN_OUT_RDYAZIMUT,OUTPUT);
+    digitalWrite(PIN_OUT_RDYAZIMUT, LOW);
     pinMode(PIN_OUT_RDYELEV,OUTPUT);
+    digitalWrite(PIN_OUT_RDYELEV, LOW);
     //
     // Sorties PWM
     pinMode(PIN_OUT_PWMAZIMUT,OUTPUT);
@@ -316,12 +331,12 @@ void CmdForm(WebServer &server, WebServer::ConnectionType type, char *, bool)
     azimut = (int)strtoul(az, NULL, 10);
     elevation = (int)strtoul(elev, NULL, 10);
 
-    if (azimut > 0 && azimut <= 180)
+    if (azimut >= 0 && azimut <= 180)
     {
         setAzimut(azimut);
         stopAzimut();
     }
-    if (elevation > 0 && elevation <= 90)
+    if (elevation >= 0 && elevation <= 90)
     {
         setElev(elevation);
         stopElev();
